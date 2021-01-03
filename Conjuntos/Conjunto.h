@@ -9,6 +9,7 @@ public:
 	Conjunto() {
 		princ = NULL;
 		vacio = NULL;
+		subc = NULL;
 	}
 	void Push(int val) {
 		if (!ElemExist(val)) {
