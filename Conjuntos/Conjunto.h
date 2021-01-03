@@ -3,13 +3,15 @@
 
 class Conjunto {
 	Element* princ;
-	Conjunto* subc;
+	Conjunto** subc;
+	Conjunto* nextc;
 	Conjunto* vacio;
 public:
 	Conjunto() {
 		princ = NULL;
 		vacio = NULL;
 		subc = NULL;
+		nextc = NULL;
 	}
 	void Push(int val) {
 		if (!ElemExist(val)) {
@@ -21,11 +23,16 @@ public:
 		}
 	}
 	void PushSet(Conjunto* New) {
-		//Conjunto* Aux = new Conjunto();
+		if (subc == NULL) {
+			subc = New;
+		}
+		else {
+			//Conjunto* Aux = new Conjunto();
 
+		}
 
 	}
-	Conjunto* retSubc() {
+	Conjunto* getSubc() {
 		return subc;
 	}
 	void setSubc(Conjunto* New) {
