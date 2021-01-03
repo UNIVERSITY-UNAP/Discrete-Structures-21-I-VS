@@ -24,7 +24,7 @@ public:
 	}
 	void PushSet(Conjunto* New) {
 		if (subc == NULL) {
-			subc = New;
+			*subc = New;
 		}
 		else {
 			//Conjunto* Aux = new Conjunto();
@@ -33,10 +33,10 @@ public:
 
 	}
 	Conjunto* getSubc() {
-		return subc;
+		return *subc;
 	}
 	void setSubc(Conjunto* New) {
-		subc = New;
+		*subc = New;
 	}
 	int RetElem(int pos) {
 		Element* Aux = princ;
