@@ -2,7 +2,7 @@
 //Archivo Elemento.h
 class Element {
 	int data;
-	Element *Next;
+	Element* Next;
 public:
 	Element() {
 		data = 0;
@@ -12,7 +12,7 @@ public:
 		data = dat;
 		Next = NULL;
 	}
-	void setNext(Element *Aux) {
+	void setNext(Element* Aux) {
 		Next = Aux;
 	}
 	Element* retNext() {

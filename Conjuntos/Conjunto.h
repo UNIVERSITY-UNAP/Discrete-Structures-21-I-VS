@@ -2,9 +2,9 @@
 #include "Elemento.h"
 
 class Conjunto {
-	Element *princ;
-	Conjunto *subc;
-	Conjunto *vacio;
+	Element* princ;
+	Conjunto* subc;
+	Conjunto* vacio;
 public:
 	Conjunto() {
 		princ = NULL;
@@ -13,15 +13,26 @@ public:
 	}
 	void Push(int val) {
 		if (!ElemExist(val)) {
-			Element *Aux = new Element(val);
+			Element* Aux = new Element(val);
 			if (princ != NULL) {
 				Aux->setNext(princ);
 			}
 			princ = Aux;
 		}
 	}
-	int RetElem (int pos) {
-		Element *Aux = princ;
+	void PushSet(Conjunto* New) {
+		//Conjunto* Aux = new Conjunto();
+
+
+	}
+	Conjunto* retSubc() {
+		return subc;
+	}
+	void setSubc(Conjunto* New) {
+		subc = New;
+	}
+	int RetElem(int pos) {
+		Element* Aux = princ;
 		int count = 0;
 		int N = numElem();
 		while (Aux != NULL) {
@@ -35,7 +46,7 @@ public:
 		//	|1||2||3||4||5|
 	}
 	int numElem() {
-		Element *Aux = princ;
+		Element* Aux = princ;
 		int count = 0;
 		while (Aux != NULL) {
 			Aux = Aux->retNext();
@@ -47,7 +58,7 @@ public:
 		return princ == NULL;
 	}
 	bool ElemExist(int val) {
-		Element *Aux = princ;
+		Element* Aux = princ;
 		while (Aux != NULL) {
 			if (Aux->retVal() == val)
 				return 1;
@@ -56,7 +67,7 @@ public:
 		Aux = NULL;
 		return 0;
 	}
-	bool ItsIncludedIn(Conjunto *B) {
+	bool ItsIncludedIn(Conjunto* B) {
 		if (IsEmpty() && !B->IsEmpty()) return 1;//Para un A vacio
 		if (IsEmpty() && B->IsEmpty()) return 0;
 		int tam = numElem();
@@ -70,7 +81,7 @@ public:
 		}
 		else return 0;
 	}
-	bool Include(Conjunto *B) {
+	bool Include(Conjunto* B) {
 		if (B->IsEmpty()) return 1;//Si para un B vacio
 		int tam = B->numElem();
 		if (numElem() >= tam) {
@@ -86,7 +97,7 @@ public:
 	bool IsUnitary() {
 		return numElem() == 1;
 	}
-	Conjunto* operator || (Conjunto *B) {//UNION
+	Conjunto* operator || (Conjunto* B) {//UNION
 		if (B->IsEmpty()) return this;//Ley de Identidad
 		if (B->Include(this)) return B;//Ley de Dominacion
 		if (Include(B)) return this;// '' '' ''
@@ -102,7 +113,7 @@ public:
 		}
 		return Aux;//Cumple las leyes Conmutativa y Asociativa
 	}
-	Conjunto* operator && (Conjunto *B) {
+	Conjunto* operator && (Conjunto* B) {
 		if (B->Include(this)) return this;//Ley de Identidad
 		if (B->IsEmpty()) return B;// Ley  de Dominacion
 		if (this == B) return this;//Ley Idempotente
@@ -117,10 +128,10 @@ public:
 		return Aux;//Sin elementos en comun retorna conjunto vacio
 					//Cumple Las leyes conmutativa y asociativa
 	}
-	Conjunto* operator - (Conjunto *B) {
+	Conjunto* operator - (Conjunto* B) {
 		if (B->IsEmpty()) return this;
 		if (IsEmpty()) return this;
-		Conjunto *Aux = new Conjunto();
+		Conjunto* Aux = new Conjunto();
 		int i = 1, tam = numElem();
 		while (i <= tam) {
 			if (!B->ElemExist(RetElem(i))) {
@@ -130,14 +141,14 @@ public:
 		}
 		return Aux;
 	}
-	Conjunto* Complemento(Conjunto *Universo) {
+	Conjunto* Complemento(Conjunto* Universo) {
 		if (!Universo->Include(this)) {
-			Conjunto *Aux = new Conjunto();
+			Conjunto* Aux = new Conjunto();
 			return Aux;
 		}
 		if (Universo->IsEmpty()) return Universo;
 		if (IsEmpty()) return Universo;
-		Conjunto *Aux = new Conjunto();
+		Conjunto* Aux = new Conjunto();
 		int i = 1, tam = Universo->numElem();
 		while (i <= tam) {
 			if (!ElemExist(Universo->RetElem(i))) {
@@ -147,7 +158,7 @@ public:
 		}
 		return Aux;//Complemento(Complemento(A,U),U) == A
 	}
-	bool operator == (Conjunto *B) {
+	bool operator == (Conjunto* B) {
 		int i = 1, tam = numElem();
 		if (tam == B->numElem()) {
 			while (i <= tam) {
@@ -173,7 +184,7 @@ public:
 	int numPropSubsets() {
 		return numSubsets() - 1;
 	}
-	bool areDisj(Conjunto *B) {
+	bool areDisj(Conjunto* B) {
 		if (IsEmpty() || B->IsEmpty()) return 1;//1.Interseccion en el vacio;
 		int i = 1, tam = numElem();
 		while (i <= tam) {
@@ -184,11 +195,11 @@ public:
 		}
 		return 1;//2.Interseccion en el vacio
 	}
-	Conjunto* SymDif(Conjunto *B) {
+	Conjunto* SymDif(Conjunto* B) {
 		if (B->IsEmpty() && !IsEmpty()) return this;
 		if (IsEmpty() && !B->IsEmpty()) return B;
 		if (IsEmpty() && B->IsEmpty()) return this;
-		Conjunto *Aux = new Conjunto();
+		Conjunto* Aux = new Conjunto();
 		/*	if (areDisj(B)) Aux = this || B;*/
 		int i = 1, tam = numElem();
 		while (i <= tam) {
