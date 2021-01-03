@@ -10,9 +10,6 @@ int main() {
 	Conjunto<int> *c3 = new Conjunto<int>();
 	Elemento<int> *e1 = new Elemento<int>(3);
 	c1->InsertarConj(*c2);*/
-	Conjunto sub1 = new Conjunto(){
-
-	}
 	Conjunto* A = new Conjunto();
 	A->Push(3);
 	A->Push(4);
